@@ -1,0 +1,5 @@
+Olá,
+
+para iniciar o programa basta colocar a entrada no arquivo "ortogonaliza.txt", digitar "./Run.sh"
+caso dê algum problema de permissão como "permission denied", é por que seu computador não deu acesso ao arquivo.
+digite "chmod 777 *" e rode com o "./Run.sh". A saída retornará no arquivo "ortogonaliza.txt".

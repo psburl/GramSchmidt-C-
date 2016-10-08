@@ -1,0 +1,1 @@
+g++ programagram.cpp -o bin/programagram && cd bin && ./programagram

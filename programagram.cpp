@@ -34,7 +34,7 @@ int main(void){
 	string allInput = "";
 	string output = "";
 
-	readInput(input, "ortogonaliza.txt", allInput);
+	readInput(input, "../ortogonaliza.txt", allInput);
 
 	t_set set;
 
@@ -56,7 +56,7 @@ int main(void){
 			//orthogonalized.push_back (ortogonalizate(set, i));		
 	}
 
-	ofstream outputFile("ortogonaliza.txt");
+	ofstream outputFile("../ortogonaliza.txt");
 	//...
 	outputFile << allInput <<  "writing to file" << endl;	
 }
