@@ -31,16 +31,39 @@ public:
     t_vector operator*(double);
     t_vector operator+(t_vector);
     t_vector operator-(t_vector);
+
+    string toString();
 };
 
 /* Overloading operators */
+
+string t_vector::toString(){
+
+
+	string _string = "(";
+
+	for(int j = 0; j < this->size(); j++){
+		
+		std::ostringstream strs;
+		strs << (*this)[j];
+
+		_string += strs.str();
+
+		if(j != this->size()-1)
+			_string += ",";
+	}
+
+	_string += ")";
+
+	return _string;
+};
 
 t_scalar t_vector::operator*(t_vector u){
 
 	t_scalar internalProduct =  0.00;
 
 	for(int i = 0; i < this->size(); i++)
-		internalProduct += (*this)[i] + u[i];
+		internalProduct += (*this)[i] * u[i];
 
 	return internalProduct;	
 };

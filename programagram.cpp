@@ -52,11 +52,12 @@ int main(void){
 
 		t_set orthogonalized;
 
-		for(int i = 1; i <= 5; i++);
-			//orthogonalized.push_back (ortogonalizate(set, i));		
-	}
+		for(int i = 0; i < 5; i++){
+			set[i] = ortogonalizate(set, i);
+			orthogonalized.push_back(set[i]);
+		}
 
-	ofstream outputFile("../ortogonaliza.txt");
-	//...
-	outputFile << allInput <<  "writing to file" << endl;	
+		ofstream outputFile("../ortogonaliza.txt");
+		outputFile << allInput <<  setToString(orthogonalized) << endl;	
+	}
 }

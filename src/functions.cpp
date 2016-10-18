@@ -38,6 +38,7 @@ bool isBase(vector<t_vector>& sets);
 t_vector proj(t_vector set, t_vector base);
 t_vector ortogonalizate(t_set set, int iterations);
 
+string setToString(t_set set);
 
 /*	Functions implementations	*/
 
@@ -86,13 +87,14 @@ t_vector proj(t_vector set, t_vector base){
 
 t_vector ortogonalizate(t_set set, int iterations){
 
-	int position = iterations-1;
+	if(iterations == 0)
+		return set[0];
 
-	t_vector u = set [position];
+	t_vector u = set[iterations];
 	int j = 0;
-	while(j < (position-1)){
+	while(j < iterations){
 
-		u = u - proj(set[position], set[j]);
+		u = u - proj(u, set[j]);
 		j++;
 	}
 
@@ -133,6 +135,22 @@ t_vector toVector(vector<string>& strSet){
 		_vector.push_back(toDouble(*string_value));
 
 	return _vector;
+}
+
+
+string setToString(t_set set){
+
+	string _string = "{";
+
+	for(int i = 0; i < set.size(); i++){
+
+		_string += set[i].toString();
+
+		if(i != set.size() - 1)
+			_string += ',';
+	}
+	
+	return _string + "}";
 }
 
 #endif
