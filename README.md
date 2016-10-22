@@ -5,9 +5,13 @@ The input of this program is get on file 'ortogonaliza.txt'. The input must be l
 
 //
 0,0,0,0,0
+
 1,1,0,0,0
+
 1,1,1,0,0
+
 1,1,1,1,0
+
 1,1,1,1,1
 //
 
