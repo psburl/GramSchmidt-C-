@@ -12,6 +12,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <sstream>
 #include <algorithm>
 #include <string>
 #include <stdlib.h>
@@ -31,6 +32,7 @@ public:
     t_vector operator*(double);
     t_vector operator+(t_vector);
     t_vector operator-(t_vector);
+	bool operator==(t_vector u);
 
     string toString();
 };
@@ -96,6 +98,15 @@ t_vector t_vector::operator-(t_vector u){
 		sub.push_back((*this)[i] - u[i]);
 
 	return sub;	
+};
+
+bool t_vector::operator==(t_vector u){
+
+	for(int it = 0; it < this->size(); it++)
+		if(u[it] != (*this)[it])
+			return false;
+
+	return true;	
 };
 
 #endif

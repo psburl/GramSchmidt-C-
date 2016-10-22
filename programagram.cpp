@@ -33,10 +33,16 @@ int main(void){
 	vector<string> input;
 	string allInput = "";
 	string output = "";
+	t_set set;
 
 	readInput(input, "../ortogonaliza.txt", allInput);
 
-	t_set set;
+	if(allInput == ""){
+		
+		ofstream outputFile("../ortogonaliza.txt");
+		outputFile << "This input can't be read. Please verify if it's correct." << endl;
+		return 1;
+	}
 
 	for(vector<string>::iterator inputLine = input.begin(); inputLine != input.end(); ++inputLine){
 
@@ -45,19 +51,20 @@ int main(void){
 		set.push_back(toVector(strSet));
 	}
 	
-	if(!isBase(set))
-		output += "This inputs is a non-base of R5 vetorial space.\n";
-	
-	else{
-
-		t_set orthogonalized;
-
-		for(int i = 0; i < 5; i++){
-			set[i] = ortogonalizate(set, i);
-			orthogonalized.push_back(set[i]);
-		}
-
+	if(!isBase(set)){
 		ofstream outputFile("../ortogonaliza.txt");
-		outputFile << allInput <<  setToString(orthogonalized) << endl;	
+		outputFile << "This input is a non-base of R5 vetorial space.\n" << endl;
+		return 1;
 	}
+	
+
+	t_set orthogonalized;
+
+	for(int i = 0; i < 5; i++){
+		set[i] = ortogonalizate(set, i);
+		orthogonalized.push_back(set[i]);
+	}
+
+	ofstream outputFile("../ortogonaliza.txt");
+	outputFile << allInput <<  setToString(orthogonalized) << endl;	
 }

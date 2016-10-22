@@ -27,18 +27,15 @@ using namespace std;
 /*	Functions signatures	*/
 
 bool readInput(vector<string>& readLines, const char* FilePath);
-
 vector<string> split(const string &s, char delim);
-
 double toDouble(string s);
 t_vector toVector(vector<string>& strSet);
 void removeAllOcurrences(string& string_value, char toremove);
-
 bool isBase(vector<t_vector>& sets);
 t_vector proj(t_vector set, t_vector base);
 t_vector ortogonalizate(t_set set, int iterations);
-
 string setToString(t_set set);
+
 
 /*	Functions implementations	*/
 
@@ -124,6 +121,22 @@ vector<string> split(const string &string_split, char delimiter) {
 }	
 
 bool isBase(t_set& set){
+
+	int set_lenght = set.size();
+
+	int vector_lenght = set[0].size();
+
+	if(set_lenght > vector_lenght)
+		return false;
+
+	t_vector zeros;
+
+	for(int it = 0; it < set_lenght; it++)
+		zeros.push_back(0.00);
+
+	for(int it = 0; it < set_lenght; it++)
+		if(set[it] == zeros)
+			return false;
 
 	return true;
 };
