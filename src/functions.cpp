@@ -16,6 +16,7 @@
 #include <sstream>
 #include <string>
 #include <stdlib.h>
+#include <math.h>
 
 #include "vector.cpp"
 
@@ -35,6 +36,10 @@ bool isBase(vector<t_vector>& sets);
 t_vector proj(t_vector set, t_vector base);
 t_vector ortogonalizate(t_set set, int iterations);
 string setToString(t_set set);
+double det(double **m, int n);
+double **matrizMenor(double **m, double **m2, int c, int n);
+int **freeMQ(double **m, int n);
+double **alocarMQ(int n);
 
 
 /*	Functions implementations	*/
@@ -120,26 +125,6 @@ vector<string> split(const string &string_split, char delimiter) {
     return tokens;
 }	
 
-bool isBase(t_set& set){
-
-	int set_lenght = set.size();
-
-	int vector_lenght = set[0].size();
-
-	if(set_lenght > vector_lenght)
-		return false;
-
-	t_vector zeros;
-
-	for(int it = 0; it < set_lenght; it++)
-		zeros.push_back(0.00);
-
-	for(int it = 0; it < set_lenght; it++)
-		if(set[it] == zeros)
-			return false;
-
-	return true;
-};
 
 t_vector toVector(vector<string>& strSet){
 
@@ -165,5 +150,82 @@ string setToString(t_set set){
 	
 	return _string + "}";
 }
+
+//Retorna o determinante da matriz m de ordem n por Laplace
+double det(double **m, int n){
+	//Caso fundamental
+	if(n == 1)
+		return **m;
+	
+	//Criando a matriz do cofator
+	int c;
+	double cof, **m2 = alocarMQ(n-1), d;
+	
+	//Para cada coluna
+	for(c=0; c<n; c++){
+		//Calculando o cofator
+		cof = (c%2?-1:1) * det(matrizMenor(m, m2, c, n), n-1);
+		//Somando a parcela ao determinante final
+		d += m[0][c]*cof;
+	}
+	
+	//Liberando o espaço alocado da matriz do cofator
+	freeMQ(m2, n-1);
+	
+	//Retornando o determinante
+	return d;
+}
+
+//Retira a primeira linha a coluna c de m e armazena em m2. n é a ordem de m
+double **matrizMenor(double **m, double **m2, int c, int n){
+	int i, j; 
+	double **p=m2, *p2;
+	for(i = 1; i < n; i++){
+		p2 = *p++;
+		for(j = 0; j < n; j++)
+			if(j==c) continue;
+			else *p2++ = m[i][j];
+	}
+	return m2;
+}
+
+//Aloca espaço para uma matriz quadrada
+double **alocarMQ(int n){
+	double **m;
+	int i;
+	m = (double**)calloc(n, sizeof(double*));
+	if(m == NULL) exit(1);
+	for(i=0; i<n; i++){
+		*(m+i) = (double*)calloc(n, sizeof(double));
+		if(*(m+i) == NULL) exit(1);
+	}
+	return m;
+}
+
+
+//Desaloca espaço de uma matriz quadrada
+int **freeMQ(double **m, int n){
+	int i;
+	if(m == NULL) return NULL;
+	for(i=0; i<n; i++) free(m[i]);
+	free(m);
+	return NULL;
+}
+
+bool isBase(t_set& set){
+	
+	double **mt = alocarMQ(6);
+
+	for(int it = 0; it < set.size(); it++)
+		for(int j = 0; j < set[it].size(); j++)
+			mt[it][j] = set[it][j];
+
+	double retorno = det(mt, 5);
+
+	if(fabs(retorno-0) < 0.0000001)
+		return false;
+
+	return true;
+};
 
 #endif

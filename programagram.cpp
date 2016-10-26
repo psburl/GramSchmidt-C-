@@ -65,6 +65,18 @@ int main(void){
 		orthogonalized.push_back(set[i]);
 	}
 
+	t_set normalized;
+
+	for(int i = 0; i < 5; i++){
+		
+		t_vector toNormalize = orthogonalized[i];
+
+		double module = sqrt(toNormalize * toNormalize);
+
+		normalized.push_back(toNormalize/module);
+	}
+
+
 	ofstream outputFile("../ortogonaliza.txt");
-	outputFile << allInput <<  setToString(orthogonalized) << endl;	
+	outputFile << allInput <<  setToString(normalized) << endl;	
 }

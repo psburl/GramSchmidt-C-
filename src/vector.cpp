@@ -32,6 +32,7 @@ public:
     t_vector operator*(double);
     t_vector operator+(t_vector);
     t_vector operator-(t_vector);
+    t_vector operator/(double);
 	bool operator==(t_vector u);
 
     string toString();
@@ -96,6 +97,16 @@ t_vector t_vector::operator-(t_vector u){
 
 	for(int i = 0; i < this->size(); i++)
 		sub.push_back((*this)[i] - u[i]);
+
+	return sub;	
+};
+
+t_vector t_vector::operator/(double u){
+
+	t_vector sub;
+
+	for(int i = 0; i < this->size(); i++)
+		sub.push_back((*this)[i] / u);
 
 	return sub;	
 };
