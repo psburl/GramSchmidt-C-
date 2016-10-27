@@ -214,6 +214,9 @@ int **freeMQ(double **m, int n){
 
 bool isBase(t_set& set){
 	
+	if(set.size()!=5)
+		return true;
+
 	double **mt = alocarMQ(6);
 
 	for(int it = 0; it < set.size(); it++)

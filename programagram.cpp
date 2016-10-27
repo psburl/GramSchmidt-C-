@@ -60,14 +60,14 @@ int main(void){
 
 	t_set orthogonalized;
 
-	for(int i = 0; i < 5; i++){
+	for(int i = 0; i < set.size(); i++){
 		set[i] = ortogonalizate(set, i);
 		orthogonalized.push_back(set[i]);
 	}
 
 	t_set normalized;
 
-	for(int i = 0; i < 5; i++){
+	for(int i = 0; i < orthogonalized.size(); i++){
 		
 		t_vector toNormalize = orthogonalized[i];
 
